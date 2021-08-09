@@ -55,11 +55,13 @@ fn main() -> rltk::BError {
     gs.ecs.register::<Player>();
 
     // add ye olde map
-    gs.ecs.insert(new_map());
+    let (rooms, map) = new_map_rooms_and_corridors();
+    gs.ecs.insert(map);
+    let (player_x, player_y) = rooms[0].center();
 
     // create player
     gs.ecs.create_entity()
-      .with(Position { x: 40, y: 25 })
+      .with(Position { x: player_x, y: player_y })
       .with(Renderable {
           glyph: rltk::to_cp437('@'),
           fg: RGB::named(rltk::YELLOW),
@@ -67,18 +69,6 @@ fn main() -> rltk::BError {
       })
       .with(Player {})
       .build();
-
-    // add in some test things for now
-    for i in 1..10 {
-        gs.ecs.create_entity()
-          .with(Position { x: i * 7, y:20 })
-          .with(Renderable {
-              glyph: rltk::to_cp437('☺'),
-              fg: RGB::named(rltk::RED),
-              bg: RGB::named(rltk::BLACK),
-          })
-          .build();
-    }
 
     // loop for-ev-er
     rltk::main_loop(context, gs)

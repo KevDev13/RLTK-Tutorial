@@ -9,7 +9,8 @@ pub enum TileType {
     Floor
 }
 
-pub fn new_map() -> Vec<TileType> {
+/// Makes a map with solid boundaires and 400 randomly placed wall. It won't be pretty.
+pub fn new_map_test() -> Vec<TileType> {
     use TileType::*; // save myself some typing here...
     let mut map = vec![Floor; 80 * 50];
 
@@ -66,4 +67,10 @@ pub fn draw_map(map: &[TileType], ctx: &mut Rltk) {
 // takes an (x, y) point and changes into a single usize for array purposes
 pub fn xy_idx(x: i32, y: i32) -> usize {
     (y as usize * 80) + x as usize
+}
+
+pub fn new_map_rooms_and_corridors() -> Vec<TileType> {
+    let mut map = vec![TileType::Wall; 80 * 50];
+
+    map
 }

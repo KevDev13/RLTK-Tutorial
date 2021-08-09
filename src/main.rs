@@ -9,6 +9,8 @@ mod map;
 pub use map::*;
 mod player;
 pub use player::*;
+mod rect;
+pub use rect::*;
 
 pub struct State{
     ecs: World
